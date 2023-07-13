@@ -82,7 +82,7 @@ Algumas regras adicionais:
 
 - Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
 
-- O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída. 
+- O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
 
 - O limite do cliente é reduzido pelo valor em reais da operação. Nunca podendo ser menor que 0. 
 
