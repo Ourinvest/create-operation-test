@@ -10,13 +10,13 @@ Os arquivos .json de entrada terão a seguinte estrutura:
 
  
 
-   { 
+ { 
 
       "balance":"float",  // saldo em reais do cliente 
 
       "limit":"float",     // limite em reais do quanto o cliente pode operar em um período 
 
-   [ 
+ "operations":[ 
 
       { 
 
@@ -52,13 +52,13 @@ O arquivo de saída deve ter a seguinte estrutura:
 
 ``` 
 
-   { 
+ { 
 
-      "balance":"float",    // saldo atualizado em reais do cliente 
+    "balance":"float",    // saldo atualizado em reais do cliente 
 
-      "limit":"float",       // limite atualizado em reais do cliente, 
+    "limit":"float",       // limite atualizado em reais do cliente, 
 
-   [ 
+  "operations":[ 
 
       { 
 
