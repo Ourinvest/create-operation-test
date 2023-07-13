@@ -84,7 +84,7 @@ Algumas regras adicionais:
 
 - O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
 
-- O limite do cliente é reduzido pelo valor em reais da operação. Nunca podendo ser menor que 0. 
+- O limite do cliente é sempre subtraído pelo valor em reais da operação. Nunca podendo ser menor que 0.
 
   
 
