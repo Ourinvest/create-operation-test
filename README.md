@@ -34,7 +34,7 @@ O arquivo de saída deve ter a seguinte estrutura:
   "operations":[ 
     { 
        "real_quantity":"float",  // quantidade em reais do quanto foi negociado 
-       "created_at":"datetime"   // horário da execução da operação  
+       "created_at":"datetime"   // horário da execução da operação em UTC escrita segundo ISO 8601
     } 
  ] 
 } 
