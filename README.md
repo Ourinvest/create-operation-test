@@ -15,8 +15,11 @@ Os arquivos .json de entrada terão a seguinte estrutura:
       "fx_quantity":"float",  // quantidade de moeda estrangeira sendo negociada 
     }
   ] 
-} 
+}
 ``` 
+O objeto em questão lida com duas partes:
+- Informações do clientes, neste caso, saldo (balance) e limite (limit).
+- Uma lista de tamanho irrestrito de operações contendo as minimas informações necessárias para a criação do extrato.
 
 Sua tarefa é processar estas operações de câmbio. Existem dois tipos de operações: "In", que significa que o cliente está recebendo dinheiro, e "Out", que significa que o cliente está enviando dinheiro. Para cada operação, você precisa calcular o valor em reais correspondente, levando em conta o valor do 'spot' (paridade da moeda estrangeira com o real) e o 'spread' (um percentual adicional cobrado sobre a operação). 
 
