@@ -13,7 +13,7 @@ Os arquivos .json de entrada terão a seguinte estrutura:
       "spot":"float",     // valor da moeda no mercado 
       "spread":"float",   // valor do percentual 
       "fx_quantity":"float",  // quantidade de moeda estrangeira sendo negociada
-      "created_at":"datetime"   // horário da execução da operação em UTC escrita segundo ISO 8601
+      "created_at":"string"   // horário da execução da operação em UTC escrita segundo ISO 8601
     }
   ] 
 }
@@ -35,7 +35,7 @@ O arquivo de saída deve ter a seguinte estrutura:
   "operations":[ 
     { 
        "real_quantity":"float",  // quantidade em reais do quanto foi negociado 
-       "created_at":"datetime"   // horário da execução da operação em UTC escrita segundo ISO 8601
+       "created_at":"string"   // horário da execução da operação em UTC escrita segundo ISO 8601
     } 
  ] 
 } 
