@@ -12,7 +12,8 @@ Os arquivos .json de entrada terão a seguinte estrutura:
       "type":"string",    // Se a operação é de envio(OUT) ou de recebimento(IN) 
       "spot":"float",     // valor da moeda no mercado 
       "spread":"float",   // valor do percentual 
-      "fx_quantity":"float",  // quantidade de moeda estrangeira sendo negociada 
+      "fx_quantity":"float",  // quantidade de moeda estrangeira sendo negociada
+      "created_at":"datetime"   // horário da execução da operação em UTC escrita segundo ISO 8601
     }
   ] 
 }
