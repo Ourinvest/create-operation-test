@@ -47,7 +47,7 @@ O arquivo de saída deve ter a seguinte estrutura:
 
 ## Algumas regras adicionais: 
 
-- Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
+- Para operações de entrada ("In"), o valor em reais é calculado como `fx_quantity * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `fx_quantity * (1 + spread) * spot`. 
 - O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
 - O limite do cliente é sempre subtraído pelo valor em reais da operação. Nunca podendo ser menor que 0.
 
@@ -114,7 +114,7 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 20000 | 5000 |  | Operação IN de 10000 não aprovada devido a falta de limite
 20000 | 5000 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
 
-### Caso 4 - Mais simples possível com adicação de spread
+### Caso 4 - Mais simples possível com adição de spread
 
 Entrada:
 ```
