@@ -80,7 +80,7 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 15000 | 5000 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
 15000 | 5000 |  | Operação OUT de 6000 não aprovada devido a falta de limite
 20000 | 0 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
-20000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
+20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido as duas operações de entrada, porém o limite foi todo consumido
 
 
 ## Algumas regras adicionais: 
