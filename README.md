@@ -43,7 +43,7 @@ O arquivo de saída deve ter a seguinte estrutura:
 ## Conceitos
 
 - `spot`: Podemos entender como o preço de compra ou venda da moeda em questão no momento de uma operação (claramente um resumo para a execução da tarefa), um exemplo facil é entender o dolar, hoje na cotação de 4,79 BRL. No exercicio, quando pedimos `fx_quantity: 1000` significa que estamos operando 1000 USD, o que resultaria em uma operação sem `spread` de 4790 BRL.
-- `spread`: Trata-se da diferença entre o valor pago por uma instituição financeira ou banco na compra de dinheiro e o valor recebido por ele na venda, empréstimo ou operação feita com esse dinheiro. É tratado diferentemente em casos de In/Out, quando estamos recebendo (In) o banco reduz este pequeno custo do valor total que receberiamos, e quando estamos enviando (Out) é cobrado como taxa adicional.
+- `spread`: Trata-se da diferença entre o valor pago por uma instituição financeira ou banco na compra de dinheiro e o valor recebido por ele na venda, empréstimo ou operação feita com esse dinheiro. É tratado diferentemente em casos de In/Out, quando estamos recebendo (In) o banco reduz este pequeno custo do valor total que receberiamos, e quando estamos enviando (Out) é cobrado como taxa adicional na compra da moeda em questão. Acesse o [link](https://www.remessaonline.com.br/blog/o-que-e-o-spread/) para um artigo um pouco mais completo
 
 ## Algumas regras adicionais: 
 
@@ -69,7 +69,7 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 --------- | ------ | ------ | ------
 10000 | 10000 | Inicio Extrato |
 15000 | 5000 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
-10000 | 0 | - 5000 | Operação OUT (entrando dinheiro) subtrai o saldo, mas toda operação trava limite
+10000 | 0 | - 5000 | Operação OUT (enviando dinheiro) subtrai o saldo, mas toda operação trava limite
 10000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
 
 ### Caso 2 - Operação irregular entre operações regulares
@@ -113,6 +113,27 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 20000 | 5000 |  | Operação OUT de 12000 não aprovada devido a falta de limite
 20000 | 5000 |  | Operação IN de 10000 não aprovada devido a falta de limite
 20000 | 5000 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
+
+### Caso 4 - Mais simples possível com adicação de spread
+
+Entrada:
+```
+{
+  "balance": 5000.0,
+  "limit": 20000.0,
+  "operations": [{"type": "In", "spot": 1.0, "spread": 0.5, "fx_quantity": 10000.0, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 1.0, "spread": 0.5, "fx_quantity": 10000.0, "created_at": "2023-07-20T21:07:22.556467"}]
+}
+```
+
+Extrato:
+Saldo   | Limite | Valor Utilizado na operação | Explicação
+--------- | ------ | ------ | ------
+5000 | 20000 | Inicio Extrato |
+10000 | 15000 | + 5000 | Operação de In com spread de 50% representa uma retenção de custo de metade do valor com a instituição financeira
+-5000 | 0 | - 15000 | Operação Out com spread de 50% representa uma cobrança adicional de 50% do valor adiquirido
+-5000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
+
 
 ## Ao codificar sua solução, tenha em mente as seguintes diretrizes: 
 
