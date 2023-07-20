@@ -40,8 +40,14 @@ O arquivo de saída deve ter a seguinte estrutura:
  ] 
 } 
 ```
+## Algumas regras adicionais: 
+
+- Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
+- O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
+- O limite do cliente é sempre subtraído pelo valor em reais da operação. Nunca podendo ser menor que 0.
+
 ## Exemplos
-### Caso 1
+### Caso 1 - Mais simples possível
 
 Entrada:
 ```
@@ -61,7 +67,7 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 10000 | 0 | - 5000 | Operação OUT (entrando dinheiro) subtrai o saldo, mas toda operação trava limite
 10000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
 
-### Caso 2
+### Caso 2 - Operação irregular entre operações regulares
 Entrada:
 ```
 {
@@ -82,12 +88,26 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 20000 | 0 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
 20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido as duas operações de entrada, porém o limite foi todo consumido
 
+### Caso 3 - Sequencia de operações irregulares com conceito de spot adicionado
+Entrada:
+```
+{
+  "balance": 10000.0,
+  "limit": 10000.0,
+  "operations": [{"type": "In", "spot": 2.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 2.0, "spread": 0.0, "fx_quantity": 6000.0, "created_at": "2023-07-20T21:07:22.556467"},
+                 {"type": "In", "spot": 2.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-20T21:07:22.559999"}]
+}
+```
 
-## Algumas regras adicionais: 
-
-- Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
-- O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
-- O limite do cliente é sempre subtraído pelo valor em reais da operação. Nunca podendo ser menor que 0.
+Extrato:
+Saldo   | Limite | Valor Utilizado na operação | Explicação
+--------- | ------ | ------ | ------
+10000 | 10000 | Inicio Extrato |
+20000 | 5000 | + 10000 | Operação IN é dobrada devido ao spot
+15000 | 5000 |  | Operação OUT de 12000 não aprovada devido a falta de limite
+20000 | 0 | + 5000 | Operação IN de 10000 não aprovada devido a falta de limite
+20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
 
 ## Ao codificar sua solução, tenha em mente as seguintes diretrizes: 
 
