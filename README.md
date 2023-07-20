@@ -208,6 +208,19 @@ Saída esperada:
    ]
 }
 ```
+## Lidando com erros
+
+Você pode assumir que não ocorrerão erros na conversão do json de entrada. Na avaliação da sua solução
+nós não vamos utilizar entradas que contenham erros, estejam mal formatadas, ou que quebrem o contrato.
+
+## Adicione um README
+
+Sua solução deve conter um arquivo de README com:
+- Suas decisões técnicas e arquiteturais
+- Justificativas caso utilize frameworks ou bibliotecas
+- Instruções sobre como executar seu desafio
+- Instruções sobre como executar os testes da solução
+  
 
 ## Ao codificar sua solução, tenha em mente as seguintes diretrizes: 
 
