@@ -105,9 +105,9 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 --------- | ------ | ------ | ------
 10000 | 10000 | Inicio Extrato |
 20000 | 5000 | + 10000 | Operação IN é dobrada devido ao spot
-15000 | 5000 |  | Operação OUT de 12000 não aprovada devido a falta de limite
-20000 | 0 | + 5000 | Operação IN de 10000 não aprovada devido a falta de limite
-20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
+20000 | 5000 |  | Operação OUT de 12000 não aprovada devido a falta de limite
+20000 | 5000 |  | Operação IN de 10000 não aprovada devido a falta de limite
+20000 | 5000 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
 
 ## Ao codificar sua solução, tenha em mente as seguintes diretrizes: 
 
