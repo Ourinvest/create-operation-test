@@ -55,7 +55,7 @@ O arquivo de saída deve ter a seguinte estrutura:
 ### Caso 1 - Mais simples possível
 
 Entrada:
-```
+```json
 {
   "balance": 10000.0,
   "limit": 10000.0,
@@ -72,9 +72,28 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 10000 | 0 | - 5000 | Operação OUT (enviando dinheiro) subtrai o saldo, mas toda operação trava limite
 10000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
 
+Saída esperada:
+```json
+{
+   "client_info":{
+      "balance":10000.0,
+      "limit":0.0
+   },
+   "operations":[
+      {
+         "real_quantity":5000.0,
+         "created_at":"2023-07-19T21:07:22.556467"
+      },
+      {
+         "real_quantity":-5000.0,
+         "created_at":"2023-07-20T21:07:22.556467"
+      }
+   ]
+}
+```
 ### Caso 2 - Operação irregular entre operações regulares
 Entrada:
-```
+```json
 {
   "balance": 10000.0,
   "limit": 10000.0,
@@ -93,9 +112,29 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 20000 | 0 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
 20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido as duas operações de entrada, porém o limite foi todo consumido
 
+Saída esperada:
+```json
+{
+   "client_info":{
+      "balance":20000.0,
+      "limit":0.0
+   },
+   "operations":[
+      {
+         "real_quantity":5000.0,
+         "created_at":"2023-07-19T21:07:22.556467"
+      },
+      {
+         "real_quantity":5000.0,
+         "created_at":"2023-07-20T21:07:22.559999"
+      }
+   ]
+}
+```
+
 ### Caso 3 - Sequencia de operações irregulares com conceito de spot adicionado
 Entrada:
-```
+```json
 {
   "balance": 10000.0,
   "limit": 10000.0,
@@ -109,15 +148,31 @@ Extrato:
 Saldo   | Limite | Valor Utilizado na operação | Explicação
 --------- | ------ | ------ | ------
 10000 | 10000 | Inicio Extrato |
-20000 | 5000 | + 10000 | Operação IN é dobrada devido ao spot
-20000 | 5000 |  | Operação OUT de 12000 não aprovada devido a falta de limite
-20000 | 5000 |  | Operação IN de 10000 não aprovada devido a falta de limite
-20000 | 5000 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
+20000 | 0 | + 10000 | Operação IN é dobrada devido ao spot
+20000 | 0 |  | Operação OUT de 12000 não aprovada devido a falta de limite
+20000 | 0 |  | Operação IN de 10000 não aprovada devido a falta de limite
+20000 | 0 | Finalizado Extrato | Saldo aumentou em 10000 devido a operação de entrada, porém o limite foi todo consumido
+
+Saída esperada:
+```json
+{
+   "client_info":{
+      "balance":20000.0,
+      "limit":0.0
+   },
+   "operations":[
+      {
+         "real_quantity":10000.0,
+         "created_at":"2023-07-19T21:07:22.556467"
+      }
+   ]
+}
+```
 
 ### Caso 4 - Mais simples possível com adição de spread
 
 Entrada:
-```
+```json
 {
   "balance": 5000.0,
   "limit": 20000.0,
@@ -134,6 +189,25 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 -5000 | 0 | - 15000 | Operação Out com spread de 50% representa uma cobrança adicional de 50% do valor adiquirido
 -5000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
 
+Saída esperada:
+```json
+{
+   "client_info":{
+      "balance":-5000.0,
+      "limit":0.0
+   },
+   "operations":[
+      {
+         "real_quantity":5000.0,
+         "created_at":"2023-07-19T21:07:22.556467"
+      },
+      {
+         "real_quantity":-15000.0,
+         "created_at":"2023-07-20T21:07:22.556467"
+      }
+   ]
+}
+```
 
 ## Ao codificar sua solução, tenha em mente as seguintes diretrizes: 
 
