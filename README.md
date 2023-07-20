@@ -46,10 +46,10 @@ O arquivo de saída deve ter a seguinte estrutura:
 Entrada:
 ```
 {
-  "balance": 10000,
-  "limit": 10000,
-  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-19T21:07:22.556467"},
-                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-20T21:07:22.556467"}]
+  "balance": 10000.0,
+  "limit": 10000.0,
+  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-20T21:07:22.556467"}]
 }
 ```
 
@@ -65,11 +65,11 @@ Saldo   | Limite | Valor Utilizado na operação | Explicação
 Entrada:
 ```
 {
-  "balance": 10000,
-  "limit": 10000,
-  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-19T21:07:22.556467"},
-                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 6000, "created_at": "2023-07-20T21:07:22.556467"},
-                 {"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-20T21:07:22.559999"}]
+  "balance": 10000.0,
+  "limit": 10000.0,
+  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 6000.0, "created_at": "2023-07-20T21:07:22.556467"},
+                 {"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000.0, "created_at": "2023-07-20T21:07:22.559999"}]
 }
 ```
 
