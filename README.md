@@ -38,8 +38,13 @@ O arquivo de saída deve ter a seguinte estrutura:
        "created_at":"string"   // horário da execução da operação em UTC escrita segundo ISO 8601
     } 
  ] 
-} 
+}
 ```
+## Conceitos
+
+- `spot`: Podemos entender como o preço de compra ou venda da moeda em questão no momento de uma operação (claramente um resumo para a execução da tarefa), um exemplo facil é entender o dolar, hoje na cotação de 4,79 BRL. No exercicio, quando pedimos `fx_quantity: 1000` significa que estamos operando 1000 USD, o que resultaria em uma operação sem `spread` de 4790 BRL.
+- `spread`: Trata-se da diferença entre o valor pago por uma instituição financeira ou banco na compra de dinheiro e o valor recebido por ele na venda, empréstimo ou operação feita com esse dinheiro. É tratado diferentemente em casos de In/Out, quando estamos recebendo (In) o banco reduz este pequeno custo do valor total que receberiamos, e quando estamos enviando (Out) é cobrado como taxa adicional.
+
 ## Algumas regras adicionais: 
 
 - Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
