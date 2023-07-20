@@ -39,7 +39,50 @@ O arquivo de saída deve ter a seguinte estrutura:
     } 
  ] 
 } 
-``` 
+```
+## Exemplos
+### Caso 1
+
+Entrada:
+```
+{
+  "balance": 10000,
+  "limit": 10000,
+  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-20T21:07:22.556467"}]
+}
+```
+
+Extrato:
+Saldo   | Limite | Valor Utilizado na operação | Explicação
+--------- | ------ | ------ | ------
+10000 | 10000 | Inicio Extrato |
+15000 | 5000 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
+10000 | 0 | - 5000 | Operação OUT (entrando dinheiro) subtrai o saldo, mas toda operação trava limite
+10000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
+
+### Caso 2
+Entrada:
+```
+{
+  "balance": 10000,
+  "limit": 10000,
+  "operations": [{"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-19T21:07:22.556467"},
+                 {"type": "Out", "spot": 1.0, "spread": 0.0, "fx_quantity": 6000, "created_at": "2023-07-20T21:07:22.556467"},
+                 {"type": "In", "spot": 1.0, "spread": 0.0, "fx_quantity": 5000, "created_at": "2023-07-20T21:07:22.559999"}]
+}
+```
+
+Extrato:
+Saldo   | Limite | Valor Utilizado na operação | Explicação
+--------- | ------ | ------ | ------
+10000 | 10000 | Inicio Extrato |
+15000 | 5000 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
+15000 | 5000 |  | Operação OUT de 6000 não aprovada devido a falta de limite
+20000 | 0 | + 5000 | Operação IN (entrando dinheiro) soma o saldo, mas toda operação trava limite
+20000 | 0 | Finalizado Extrato | Saldo não movimentou devido a entrada e saída, porém o limite foi todo consumido
+
+
 ## Algumas regras adicionais: 
 
 - Para operações de entrada ("In"), o valor em reais é calculado como `Valor De Moeda Estrangeira * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `Valor De Moeda Estrangeira * (1 + spread) * spot`. 
