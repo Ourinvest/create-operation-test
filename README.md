@@ -47,6 +47,7 @@ O arquivo de saída deve ter a seguinte estrutura:
 
 ## Algumas regras adicionais: 
 
+- O campo de `created_at` da entrada deve ser igual no de saída, como se fosse seu identificador único, a entrada pode ser aleatória, considere este fato em sua solução.
 - Para operações de entrada ("In"), o valor em reais é calculado como `fx_quantity * (1 - spread) * spot`. Para operações de saída ("Out"), o valor em reais é `fx_quantity * (1 + spread) * spot`. 
 - O saldo do cliente é aumentado para operações de entrada e diminuído para operações de saída, podendo ficar negativo.
 - O limite do cliente é sempre subtraído pelo valor em reais da operação. Nunca podendo ser menor que 0.
